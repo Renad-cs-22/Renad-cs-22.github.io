@@ -542,31 +542,32 @@ html[dir="ltr"] .timeline-icon {
     box-shadow: 0 0 15px rgba(6, 182, 212, 0.4);
     transform: scale(1.05);
 }
-
 /* ==========================================================================
    10. شاشات الهواتف والأجهزة اللوحية والتجاوب الشامل وإصلاح الفراغات (Media Queries)
    ========================================================================== */
 @media (max-width: 768px) {
-    /* 1. إصلاح وتصغير حجم الهيدر في الجوال */
+    /* 1. إصلاح تداخل الهيدر وتحريره من الـ fixed ليتحرك مع السكرول طبيعي في الجوال */
     header {
-        padding: 6px 0 !important;
+        position: relative !important; /* يمنع الهيدر من تغطية نصوص الـ Hero */
+        padding-top: env(safe-area-inset-top);
+        padding-bottom: 10px;
     }
 
     .nav-container {
         flex-direction: column; /* ترتيب الشعار ثم المنيو ثم زر اللغة بسلاسة تحت بعض */
-        gap: 8px;
-        padding: 5px 10px;
+        gap: 12px;
+        padding: 15px 10px;
     }
 
-    /* 2. تحويل الروابط إلى مصفوفة مرنة أفقية وبدون نقاط نهائياً */
+    /* 2. تحسين القائمة لتظهر كأزرار كبسولات مرنة وسهلة الضغط */
     .nav-menu {
         display: flex !important;
         flex-wrap: wrap; 
         justify-content: center;
-        list-style: none !important; /* إلغاء النقاط الدائرية تماماً */
-        gap: 8px; 
+        list-style: none !important;
+        gap: 10px; 
         padding: 0;
-        margin: 0;
+        margin: 5px 0;
     }
 
     .nav-menu li {
@@ -574,23 +575,49 @@ html[dir="ltr"] .timeline-icon {
     }
 
     .nav-menu li a {
-        font-size: 12px; /* تصغير خط المنيو ليناسب شاشات الهواتف */
-        padding: 4px 6px;
-        margin: 0;
-        white-space: nowrap; /* منع انقسام الاسم (مثل الخبرة والتعليم) على سطرين */
+        font-size: 13px;
+        padding: 6px 10px;
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 8px;
+        white-space: nowrap;
     }
 
-    /* 3. حل مشكلة الفراغ العلوي الضخم ودفع المحتوى لأسفل */
+    .btn-lang {
+        padding: 6px 16px;
+        font-size: 13px;
+    }
+
+    /* 3. حل مشكلة تداخل ونقص مساحات الـ Hero Section */
     .hero-section {
-        padding-top: 60px !important; /* مساحة علوية صغيرة متناسقة بعد انضغاط الهيدر */
+        padding-top: 40px !important;    /* مسافة متزنة ومريحة للعين */
         padding-bottom: 60px !important;
         margin-top: 0 !important;
+        min-height: auto !important;
+    }
+
+    /* 4. إصلاح تداخل الأزرار مع قسم (من أنا) وباقي المحتوى السفلي */
+    .hero-buttons {
+        flex-direction: column; /* ترتيب الأزرار عمودياً في الجوال لعدم التداخل */
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 20px;
     }
 
     .hero-buttons .btn {
         width: 100%;
-        max-width: 300px;
+        max-width: 280px; /* حجم مثالي وموحد للزرين على الشاشة */
         text-align: center;
+        padding: 12px 24px;
+        font-size: 15px;
+    }
+
+    /* تحسين الأقسام العامة في الجوال */
+    .section {
+        padding: 50px 0;
+    }
+
+    .container {
+        padding: 20px 0;
     }
 
     /* تحسين التايم لاين للهواتف */
