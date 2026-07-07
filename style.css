@@ -497,11 +497,13 @@ html[dir="ltr"] .timeline-icon {
     transform: scale(1.05);
 }
 
-/* 10. شاشات الهواتف والأجهزة اللوحية (Media Queries) */
+/* ==========================================================================
+   10. شاشات الهواتف والأجهزة اللوحية والتجاوب الشامل (Media Queries)
+   ========================================================================== */
 @media (max-width: 768px) {
     .nav-container {
         flex-direction: column;
-        gap: 40px;
+        gap: 15px;
         padding: 15px 5%;
     }
 
@@ -509,7 +511,7 @@ html[dir="ltr"] .timeline-icon {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        gap: 30px;
+        gap: 10px;
     }
 
     nav a {
@@ -517,8 +519,9 @@ html[dir="ltr"] .timeline-icon {
         font-size: 14px;
     }
 
+    /* تم تعديل المساحة العلوية هنا من 160px إلى 240px لظهور النص بنجاح */
     .hero-section {
-        padding: 160px 0 80px 0;
+        padding: 240px 0 80px 0;
     }
 
     .hero-buttons .btn {
@@ -544,6 +547,21 @@ html[dir="ltr"] .timeline-icon {
 
     html[dir="ltr"] .timeline-icon {
         left: -31px;
+    }
+
+    /* تحويل المشاريع لكارت كامل متجاوب على الهواتف لحماية نصوص العناوين */
+    .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .project-card {
+        padding: 25px 20px;
+        min-height: auto;
+    }
+
+    .project-title {
+        font-size: 18px;
     }
 }
 
