@@ -55,7 +55,7 @@ header {
     width: 100%;
     z-index: 1000;
     border-bottom: 1px solid var(--border-color);
-      /* تضمن هذه الخاصية ألا يختفي محتوى الموقع خلف النوتش أو الكاميرا الأمامية */
+    /* تضمن هذه الخاصية ألا يختفي محتوى الموقع خلف النوتش أو الكاميرا الأمامية */
     padding-top: env(safe-area-inset-top);
 }
 
@@ -77,16 +77,29 @@ header {
     -webkit-text-fill-color: transparent;
 }
 
-nav a {
+/* تحديث هيكلية القائمة الأساسية للشاشات الكبيرة والكمبيوتر لإنهاء مشكلة النقاط */
+.nav-menu {
+    display: flex;
+    list-style: none; /* مسح النقاط الدائرية نهائياً */
+    margin: 0;
+    padding: 0;
+    gap: 24px; /* المسافة الأفقية بين كل قسم والآخر */
+    align-items: center;
+}
+
+.nav-menu li {
+    display: inline-block;
+}
+
+.nav-menu li a {
     color: var(--text-muted);
     text-decoration: none;
-    margin: 0 14px;
     font-size: 15px;
     font-weight: 500;
     transition: var(--transition);
 }
 
-nav a:hover {
+.nav-menu li a:hover {
     color: var(--cyan-gradient);
 }
 
@@ -301,17 +314,10 @@ html[dir="ltr"] .timeline-icon {
 .timeline-item p {
     color: var(--text-muted);
 }
+
 /* ==========================================================================
    المشاريع (Projects Section) - للأجهزة الكبيرة والكمبيوتر
    ========================================================================== */
-.projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    margin-top: 20px;
-}
-
-/* الكروت والمشاريع المودرن */
 .projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -345,10 +351,10 @@ html[dir="ltr"] .timeline-icon {
     color: #b19ffb; /* لون بنفسجي مضيء */
     margin-bottom: 20px;
     display: flex;
-    justify-content: flex-start; /* محاذاة لليسار/الأعلى */
+    justify-content: flex-start;
 }
 
-/* العناوين باللون الذهبي/الأصفر الفاتح */
+/* العناوين باللون البنفسجي المضيء */
 .project-card h3 {
     color: #b19ffb; 
     font-size: 20px;
@@ -384,8 +390,9 @@ html[dir="ltr"] .timeline-icon {
 
 /* رابط عرض المشروع بأسفل الكارت */
 .project-link {
-    color: #2ecc71; /* لون أخضر متناسق مع الأيقونة أو عدليه لبنفسجي حسب رغبتك */
+    color: #3498db;
     text-decoration: none;
+    font-weight: 500;
     font-size: 14px;
     display: flex;
     align-items: center;
@@ -395,14 +402,9 @@ html[dir="ltr"] .timeline-icon {
 }
 
 .project-link:hover {
-    color: #27ae60;
+    color: #2980b9;
 }
 
-.project-link {
-    color: #3498db;
-    text-decoration: none;
-    font-weight: 500;
-}
 /* 7. شبكة عرض الكروت المودرن */
 .certs-grid {
     display: grid;
@@ -411,7 +413,7 @@ html[dir="ltr"] .timeline-icon {
     padding: 0 15px;
 }
 
-/* 8. كروت المشاريع والشهادات اللامعة (Neon Glass Cards) مع حل الصور الفوري */
+/* 8. كروت المشاريع والشهادات اللامعة (Neon Glass Cards) */
 .cert-card {
     background-color: var(--bg-card);
     border-radius: var(--border-radius);
@@ -466,62 +468,6 @@ html[dir="ltr"] .timeline-icon {
     margin-bottom: 12px;
     font-weight: 600;
 }
-
-
-/* 9. شاشات الهواتف والأجهزة اللوحية (Media Queries) لحل المشكلة جذرياً */
-@media (max-width: 768px) {
-    /* إعادة ترتيب عناصر الـ Navbar عمودياً لتجنب تداخل الروابط مع زر اللغة */
-    .nav-container {
-        flex-direction: column;
-        gap: 15px;
-        padding: 15px 5%;
-    }
-
-    nav {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 10px;
-    }
-
-    nav a {
-        margin: 0 8px;
-        font-size: 14px;
-    }
-
-    /* ضبط المساحات داخل قسم الهيرو لتقليل الفراغات الإضافية بالهاتف */
-    .hero-section {
-        padding: 160px 0 80px 0;
-    }
-
-    /* جعل الأزرار تتوزع بشكل أفضل في الشاشات الصغيرة */
-    .hero-buttons .btn {
-        width: 100%;
-        max-width: 300px;
-        text-align: center;
-    }
-
-    /* تحسين طريقة عرض التايم لاين لتناسب عرض الهواتف */
-    .timeline {
-        padding-right: 20px;
-        margin: 0 10px;
-    }
-
-    html[dir="ltr"] .timeline {
-        padding-left: 20px;
-    }
-
-    .timeline-icon {
-        right: -31px;
-        width: 18px;
-        height: 18px;
-    }
-
-    html[dir="ltr"] .timeline-icon {
-        left: -31px;
-    }
-}
-
 
 /* 9. قسم عناصر التواصل المتجاوب (Modern Contact Section) */
 .contact-section {
@@ -588,9 +534,6 @@ html[dir="ltr"] .timeline-icon {
     background-color: rgba(30, 41, 59, 0.9);
 }
 
-.contact-card:hover .contact-icon {
-
-
 /* تأثير تمرير الماوس على كارت التواصل */
 .contact-card:hover .contact-icon {
     background: linear-gradient(135deg, var(--cyan-gradient), var(--purple-gradient));
@@ -601,30 +544,47 @@ html[dir="ltr"] .timeline-icon {
 }
 
 /* ==========================================================================
-   10. شاشات الهواتف والأجهزة اللوحية والتجاوب الشامل (Media Queries)
+   10. شاشات الهواتف والأجهزة اللوحية والتجاوب الشامل وإصلاح الفراغات (Media Queries)
    ========================================================================== */
 @media (max-width: 768px) {
+    /* 1. إصلاح وتصغير حجم الهيدر في الجوال */
+    header {
+        padding: 6px 0 !important;
+    }
+
     .nav-container {
-        flex-direction: column;
-        gap: 15px;
-        padding: 15px 5%;
+        flex-direction: column; /* ترتيب الشعار ثم المنيو ثم زر اللغة بسلاسة تحت بعض */
+        gap: 8px;
+        padding: 5px 10px;
     }
 
-    nav {
-        display: flex;
-        flex-wrap: wrap;
+    /* 2. تحويل الروابط إلى مصفوفة مرنة أفقية وبدون نقاط نهائياً */
+    .nav-menu {
+        display: flex !important;
+        flex-wrap: wrap; 
         justify-content: center;
-        gap: 10px;
+        list-style: none !important; /* إلغاء النقاط الدائرية تماماً */
+        gap: 8px; 
+        padding: 0;
+        margin: 0;
     }
 
-    nav a {
-        margin: 0 8px;
-        font-size: 14px;
+    .nav-menu li {
+        display: inline-block;
     }
 
-    /* تم تعديل المساحة العلوية هنا من 160px إلى 240px لظهور النص بنجاح */
+    .nav-menu li a {
+        font-size: 12px; /* تصغير خط المنيو ليناسب شاشات الهواتف */
+        padding: 4px 6px;
+        margin: 0;
+        white-space: nowrap; /* منع انقسام الاسم (مثل الخبرة والتعليم) على سطرين */
+    }
+
+    /* 3. حل مشكلة الفراغ العلوي الضخم ودفع المحتوى لأسفل */
     .hero-section {
-        padding: 240px 0 80px 0;
+        padding-top: 60px !important; /* مساحة علوية صغيرة متناسقة بعد انضغاط الهيدر */
+        padding-bottom: 60px !important;
+        margin-top: 0 !important;
     }
 
     .hero-buttons .btn {
@@ -633,6 +593,7 @@ html[dir="ltr"] .timeline-icon {
         text-align: center;
     }
 
+    /* تحسين التايم لاين للهواتف */
     .timeline {
         padding-right: 20px;
         margin: 0 10px;
@@ -652,7 +613,7 @@ html[dir="ltr"] .timeline-icon {
         left: -31px;
     }
 
-    /* تحويل المشاريع لكارت كامل متجاوب على الهواتف لحماية نصوص العناوين */
+    /* كروت المشاريع المتجاوبة */
     .projects-grid {
         grid-template-columns: 1fr;
         gap: 20px;
@@ -668,7 +629,7 @@ html[dir="ltr"] .timeline-icon {
     }
 }
 
-/* تحسينات إضافية لشاشات الهواتف الصغيرة جداً لقسم التواصل */
+/* تحسينات إضافية لشاشات الهواتف الصغيرة جداً */
 @media (max-width: 480px) {
     .contact-grid {
         grid-template-columns: 1fr;
