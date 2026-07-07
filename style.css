@@ -55,6 +55,8 @@ header {
     width: 100%;
     z-index: 1000;
     border-bottom: 1px solid var(--border-color);
+      /* تضمن هذه الخاصية ألا يختفي محتوى الموقع خلف النوتش أو الكاميرا الأمامية */
+    padding-top: env(safe-area-inset-top);
 }
 
 .nav-container {
@@ -299,7 +301,108 @@ html[dir="ltr"] .timeline-icon {
 .timeline-item p {
     color: var(--text-muted);
 }
+/* ==========================================================================
+   المشاريع (Projects Section) - للأجهزة الكبيرة والكمبيوتر
+   ========================================================================== */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 20px;
+}
 
+/* الكروت والمشاريع المودرن */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.project-card {
+    background-color: rgba(30, 30, 40, 0.4); /* خلفية داكنة شفافة */
+    padding: 30px;
+    border-radius: 15px;
+    border: 1px solid rgba(155, 89, 182, 0.15); /* حدود بنفسجية خفيفة */
+    backdrop-filter: blur(8px);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    text-align: right;
+    transition: all 0.4s ease;
+}
+
+/* تأثير الـ Hover المضيء والارتفاع */
+.project-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(155, 89, 182, 0.6);
+    box-shadow: 0 10px 30px rgba(155, 89, 182, 0.15);
+}
+
+/* تنسيق الأيقونة المضيئة */
+.project-icon {
+    font-size: 28px;
+    color: #b19ffb; /* لون بنفسجي مضيء */
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-start; /* محاذاة لليسار/الأعلى */
+}
+
+/* العناوين باللون الذهبي/الأصفر الفاتح */
+.project-card h3 {
+    color: #b19ffb; 
+    font-size: 20px;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+/* نصوص الوصف */
+.project-card p {
+    color: #cdcdde;
+    font-size: 14px;
+    line-height: 1.7;
+    margin-bottom: 25px;
+    flex-grow: 1; /* يضمن تساوى أحجام الكروت */
+}
+
+/* قسم الوسوم (Tags) */
+.project-tags {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.project-tags span {
+    background: rgba(155, 89, 182, 0.1);
+    color: #be9bf7;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    border: 1px solid rgba(155, 89, 182, 0.2);
+}
+
+/* رابط عرض المشروع بأسفل الكارت */
+.project-link {
+    color: #2ecc71; /* لون أخضر متناسق مع الأيقونة أو عدليه لبنفسجي حسب رغبتك */
+    text-decoration: none;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: flex-end; /* سحب الرابط لليمين */
+    transition: color 0.3s;
+}
+
+.project-link:hover {
+    color: #27ae60;
+}
+
+.project-link {
+    color: #3498db;
+    text-decoration: none;
+    font-weight: 500;
+}
 /* 7. شبكة عرض الكروت المودرن */
 .certs-grid {
     display: grid;
