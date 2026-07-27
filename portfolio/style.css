@@ -55,6 +55,8 @@ header {
     width: 100%;
     z-index: 1000;
     border-bottom: 1px solid var(--border-color);
+    /* تضمن هذه الخاصية ألا يختفي محتوى الموقع خلف النوتش أو الكاميرا الأمامية */
+    padding-top: env(safe-area-inset-top);
 }
 
 .nav-container {
@@ -75,16 +77,29 @@ header {
     -webkit-text-fill-color: transparent;
 }
 
-nav a {
+/* تحديث هيكلية القائمة الأساسية للشاشات الكبيرة والكمبيوتر لإنهاء مشكلة النقاط */
+.nav-menu {
+    display: flex;
+    list-style: none; /* مسح النقاط الدائرية نهائياً */
+    margin: 0;
+    padding: 0;
+    gap: 24px; /* المسافة الأفقية بين كل قسم والآخر */
+    align-items: center;
+}
+
+.nav-menu li {
+    display: inline-block;
+}
+
+.nav-menu li a {
     color: var(--text-muted);
     text-decoration: none;
-    margin: 0 14px;
     font-size: 15px;
     font-weight: 500;
     transition: var(--transition);
 }
 
-nav a:hover {
+.nav-menu li a:hover {
     color: var(--cyan-gradient);
 }
 
@@ -114,20 +129,35 @@ nav a:hover {
     background: radial-gradient(circle at 50% 30%, rgba(139, 92, 246, 0.15), transparent 60%);
 }
 
+/* تفعيل تصغير حجم الخط تلقائياً للأجهزة الذكية (Responsive Fonts) */
 .hero-content h1 {
-    font-size: 48px;
+    font-size: clamp(2rem, 6vw, 3rem);
     font-weight: 800;
     margin-bottom: 25px;
+    line-height: 1.3;
 }
 
+/* منع تداخل النصوص المكتوبة مع الأزرار وضمان الالتفاف الآمن للكلمات */
 .hero-content p {
-    font-size: 19px;
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
     max-width: 750px;
     margin: 0 auto 35px auto;
     color: var(--text-muted);
+    word-wrap: break-word;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    padding: 0 15px;
 }
 
 /* الأزرار بالتنسيق الفيروزي البنفسجي */
+.hero-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+    padding: 0 15px;
+}
+
 .hero-buttons .btn {
     display: inline-block;
     background: linear-gradient(135deg, var(--cyan-gradient), var(--purple-gradient));
@@ -136,7 +166,7 @@ nav a:hover {
     padding: 14px 32px;
     border-radius: 30px;
     font-weight: 700;
-    margin: 10px;
+    margin: 0;
     box-shadow: 0 4px 20px rgba(6, 182, 212, 0.25);
     transition: var(--transition);
 }
@@ -169,7 +199,7 @@ nav a:hover {
 
 .section h2 {
     text-align: center;
-    font-size: 34px;
+    font-size: clamp(1.8rem, 5vw, 2.1rem);
     font-weight: 700;
     margin-bottom: 50px;
 }
@@ -179,14 +209,15 @@ nav a:hover {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 20px;
+    gap: 15px;
     margin-top: 20px;
+    padding: 0 15px;
 }
 
 .skill-item {
     background-color: var(--bg-card);
     border: 1px solid var(--border-color);
-    padding: 16px 28px;
+    padding: 12px 24px;
     border-radius: 50px;
     display: flex;
     align-items: center;
@@ -198,7 +229,7 @@ nav a:hover {
 }
 
 .skill-icon {
-    font-size: 22px;
+    font-size: 20px;
     background: linear-gradient(135deg, var(--cyan-gradient), var(--purple-gradient));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -206,7 +237,7 @@ nav a:hover {
 }
 
 .skill-item span {
-    font-size: 15px;
+    font-size: 14px;
     font-weight: 600;
     color: var(--text-main);
 }
@@ -284,14 +315,105 @@ html[dir="ltr"] .timeline-icon {
     color: var(--text-muted);
 }
 
+/* ==========================================================================
+   المشاريع (Projects Section) - للأجهزة الكبيرة والكمبيوتر
+   ========================================================================== */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+
+.project-card {
+    background-color: rgba(30, 30, 40, 0.4); /* خلفية داكنة شفافة */
+    padding: 30px;
+    border-radius: 15px;
+    border: 1px solid rgba(155, 89, 182, 0.15); /* حدود بنفسجية خفيفة */
+    backdrop-filter: blur(8px);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    text-align: right;
+    transition: all 0.4s ease;
+}
+
+/* تأثير الـ Hover المضيء والارتفاع */
+.project-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(155, 89, 182, 0.6);
+    box-shadow: 0 10px 30px rgba(155, 89, 182, 0.15);
+}
+
+/* تنسيق الأيقونة المضيئة */
+.project-icon {
+    font-size: 28px;
+    color: #b19ffb; /* لون بنفسجي مضيء */
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+/* العناوين باللون البنفسجي المضيء */
+.project-card h3 {
+    color: #b19ffb; 
+    font-size: 20px;
+    margin-bottom: 12px;
+    font-weight: 600;
+}
+
+/* نصوص الوصف */
+.project-card p {
+    color: #cdcdde;
+    font-size: 14px;
+    line-height: 1.7;
+    margin-bottom: 25px;
+    flex-grow: 1; /* يضمن تساوى أحجام الكروت */
+}
+
+/* قسم الوسوم (Tags) */
+.project-tags {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}
+
+.project-tags span {
+    background: rgba(155, 89, 182, 0.1);
+    color: #be9bf7;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    border: 1px solid rgba(155, 89, 182, 0.2);
+}
+
+/* رابط عرض المشروع بأسفل الكارت */
+.project-link {
+    color: #3498db;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    justify-content: flex-end; /* سحب الرابط لليمين */
+    transition: color 0.3s;
+}
+
+.project-link:hover {
+    color: #2980b9;
+}
+
 /* 7. شبكة عرض الكروت المودرن */
 .certs-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    padding: 0 15px;
 }
 
-/* 8. كروت المشاريع والشهادات اللامعة (Neon Glass Cards) مع حل الصور الفوري */
+/* 8. كروت المشاريع والشهادات اللامعة (Neon Glass Cards) */
 .cert-card {
     background-color: var(--bg-card);
     border-radius: var(--border-radius);
@@ -345,164 +467,204 @@ html[dir="ltr"] .timeline-icon {
     color: var(--text-main);
     margin-bottom: 12px;
     font-weight: 600;
-    line-height: 1.5;
 }
 
-.cert-info p {
-    font-size: 14px;
-    color: var(--text-muted);
-    margin-bottom: 15px;
+/* 9. قسم عناصر التواصل المتجاوب (Modern Contact Section) */
+.contact-section {
+    padding: 80px 0;
+    position: relative;
 }
 
-/* 9. خصائص أيقونات ووسوم المشاريع (Project Elements) */
-.project-icon-box {
-    font-size: 36px;
-    background: linear-gradient(135deg, var(--cyan-gradient), var(--purple-gradient));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 15px;
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    max-width: 900px;
+    margin: 40px auto 0 auto;
+    padding: 0 15px;
 }
 
-.project-tags {
-    margin-top: auto;
-    padding-top: 15px;
+.contact-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 30px 20px;
     display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-}
-
-.project-tags span {
-    background-color: rgba(139, 92, 246, 0.12);
-    color: var(--purple-gradient);
-    border: 1px solid rgba(139, 92, 246, 0.2);
-    font-size: 12px;
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-weight: 600;
-}
-
-.project-link {
-    display: inline-flex;
+    flex-direction: column;
     align-items: center;
-    margin-top: 18px;
-    color: var(--cyan-gradient);
+    justify-content: center;
+    gap: 15px;
     text-decoration: none;
-    font-weight: 600;
-    font-size: 14px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     transition: var(--transition);
 }
 
-.project-link:hover {
-    color: var(--purple-gradient);
-    transform: translateX(-3px);
-}
-
-html[dir="ltr"] .project-link:hover {
-    transform: translateX(3px);
-}
-
-.project-link i {
-    margin-left: 6px;
-}
-
-html[dir="ltr"] .project-link i {
-    margin-left: 0;
-    margin-right: 6px;
-}
-
-/* 10. تذييل الصفحة وروابط التواصل (Footer & Neon Social Icons) */
-footer {
-    background-color: #0b111e;
-    border-top: 1px solid var(--border-color);
-    color: var(--text-main);
-    padding: 50px 0 30px 0;
-    margin-top: 60px;
-}
-
-footer p {
-    font-size: 18px;
-    font-weight: 600;
-}
-
-.social-links {
-    margin: 25px 0;
-}
-
-.social-links a {
-    color: var(--text-muted);
-    font-size: 24px;
-    margin: 0 16px;
-    transition: var(--transition);
-    display: inline-block;
-}
-
-.social-links a:hover {
+.contact-icon {
+    font-size: 28px;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.1), rgba(139, 92, 246, 0.1));
+    border: 1px solid rgba(6, 182, 212, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: var(--cyan-gradient);
-    transform: translateY(-4px);
-    text-shadow: 0 0 10px var(--cyan-gradient);
+    transition: var(--transition);
 }
 
-.copyright {
-    font-size: 13px;
-    color: #475569;
-    margin-top: 20px;
+.contact-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-main);
 }
 
-/* 11. التجاوب مع شاشات الهواتف الذكية (Responsive Design) */
+.contact-value {
+    font-size: 14px;
+    color: var(--text-muted);
+    word-break: break-all;
+    text-align: center;
+}
+
+.contact-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(139, 92, 246, 0.5);
+    box-shadow: 0 10px 25px rgba(139, 92, 246, 0.15);
+    background-color: rgba(30, 41, 59, 0.9);
+}
+
+/* تأثير تمرير الماوس على كارت التواصل */
+.contact-card:hover .contact-icon {
+    background: linear-gradient(135deg, var(--cyan-gradient), var(--purple-gradient));
+    color: var(--bg-dark);
+    border-color: transparent;
+    box-shadow: 0 0 15px rgba(6, 182, 212, 0.4);
+    transform: scale(1.05);
+}
+/* ==========================================================================
+   10. شاشات الهواتف والأجهزة اللوحية والتجاوب الشامل وإصلاح الفراغات (Media Queries)
+   ========================================================================== */
 @media (max-width: 768px) {
-    .nav-container {
-        flex-direction: column;
-        gap: 15px;
-        padding: 15px 5%;
-    }
-    
-    nav {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 12px;
-    }
-    
-    nav a {
-        margin: 0 8px;
-        font-size: 14px;
-    }
-    
-    .hero-section {
-        padding: 180px 5% 80px 5%;
-    }
-    
-    .hero-content h1 {
-        font-size: 32px;
-    }
-    
-    .section h2 {
-        font-size: 26px;
-    }
-    
-    .certs-grid {
-        grid-template-columns: 1fr;
+    /* 1. إصلاح تداخل الهيدر وتحريره من الـ fixed ليتحرك مع السكرول طبيعي في الجوال */
+    header {
+        position: relative !important; /* يمنع الهيدر من تغطية نصوص الـ Hero */
+        padding-top: env(safe-area-inset-top);
+        padding-bottom: 10px;
     }
 
-    .timeline {
-        padding-right: 0;
-        border-right: none;
-    }
-    
-    html[dir="ltr"] .timeline {
-        padding-left: 0;
-        border-left: none;
-    }
-    
-    .timeline-icon {
-        display: none;
-    }
-    
-    .skills-grid {
+    .nav-container {
+        flex-direction: column; /* ترتيب الشعار ثم المنيو ثم زر اللغة بسلاسة تحت بعض */
         gap: 12px;
+        padding: 15px 10px;
     }
-    
-    .skill-item {
-        padding: 12px 20px;
+
+    /* 2. تحسين القائمة لتظهر كأزرار كبسولات مرنة وسهلة الضغط */
+    .nav-menu {
+        display: flex !important;
+        flex-wrap: wrap; 
+        justify-content: center;
+        list-style: none !important;
+        gap: 10px; 
+        padding: 0;
+        margin: 5px 0;
+    }
+
+    .nav-menu li {
+        display: inline-block;
+    }
+
+    .nav-menu li a {
+        font-size: 13px;
+        padding: 6px 10px;
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 8px;
+        white-space: nowrap;
+    }
+
+    .btn-lang {
+        padding: 6px 16px;
+        font-size: 13px;
+    }
+
+    /* 3. حل مشكلة تداخل ونقص مساحات الـ Hero Section */
+    .hero-section {
+        padding-top: 40px !important;    /* مسافة متزنة ومريحة للعين */
+        padding-bottom: 60px !important;
+        margin-top: 0 !important;
+        min-height: auto !important;
+    }
+
+    /* 4. إصلاح تداخل الأزرار مع قسم (من أنا) وباقي المحتوى السفلي */
+    .hero-buttons {
+        flex-direction: column; /* ترتيب الأزرار عمودياً في الجوال لعدم التداخل */
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 20px;
+    }
+
+    .hero-buttons .btn {
+        width: 100%;
+        max-width: 280px; /* حجم مثالي وموحد للزرين على الشاشة */
+        text-align: center;
+        padding: 12px 24px;
+        font-size: 15px;
+    }
+
+    /* تحسين الأقسام العامة في الجوال */
+    .section {
+        padding: 50px 0;
+    }
+
+    .container {
+        padding: 20px 0;
+    }
+
+    /* تحسين التايم لاين للهواتف */
+    .timeline {
+        padding-right: 20px;
+        margin: 0 10px;
+    }
+
+    html[dir="ltr"] .timeline {
+        padding-left: 20px;
+    }
+
+    .timeline-icon {
+        right: -31px;
+        width: 18px;
+        height: 18px;
+    }
+
+    html[dir="ltr"] .timeline-icon {
+        left: -31px;
+    }
+
+    /* كروت المشاريع المتجاوبة */
+    .projects-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .project-card {
+        padding: 25px 20px;
+        min-height: auto;
+    }
+
+    .project-title {
+        font-size: 18px;
     }
 }
+
+/* تحسينات إضافية لشاشات الهواتف الصغيرة جداً */
+@media (max-width: 480px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .contact-card {
+        padding: 20px 15px;
+    }
+}
+
